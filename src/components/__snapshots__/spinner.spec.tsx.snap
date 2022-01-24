@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spinner renders and matches snapshot 1`] = `
+<DocumentFragment>
+  <i
+    aria-hidden="true"
+    class="spinner fas fa-spinner fa-spin fa-lg"
+  />
+</DocumentFragment>
+`;

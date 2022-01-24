@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SuccessCheckmark renders and matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="success-checkmark"
+  >
+    <div
+      class="check-icon"
+    >
+      <span
+        class="icon-line line-tip"
+      />
+      <span
+        class="icon-line line-long"
+      />
+      <div
+        class="icon-circle"
+      />
+      <div
+        class="icon-fix"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,5 @@
+/*! purgecss start ignore */
+@import "normalize.css";
+@import "./intl-tel-input";
+@import "./success-checkmark";
+/*! purgecss end ignore */
