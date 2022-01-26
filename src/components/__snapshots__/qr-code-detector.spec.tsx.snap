@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SatSymbol renders and matches snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="scan link center-display"
+    >
+      start
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -20,7 +20,3 @@ type UseMyUpdates = {
 }
 
 type SpinnerSize = "small" | "big"
-
-type BarCode = {
-  rawValue: string
-}
