@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react"
-import { QRCodeDetecor } from "./qr-code-detector"
+import { QRCodeDetecor } from "./qrcode-detector"
 
 describe("SatSymbol", () => {
   it("renders and matches snapshot", () => {

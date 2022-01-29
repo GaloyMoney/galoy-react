@@ -1,6 +1,6 @@
 {
   "name": "@galoymoney/react",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": "dist/index.js",
   "license": "MIT",
   "repository": "https://github.com/galoymoney/galoy-react",
@@ -20,7 +20,6 @@
     "tsc:check": "tsc --pretty --noEmit --skipLibCheck"
   },
   "dependencies": {
-    "@apollo/client": "^3.5.7",
     "@types/intl-tel-input": "^17.0.4",
     "graphql": "^16.2.0",
     "html5-qrcode": "^2.1.6",
@@ -38,7 +37,7 @@
     "babel-jest": "^27.4.5",
     "copyfiles": "^2.4.1",
     "css-loader": "^6.5.1",
-    "eslint": "^8.7.0",
+    "eslint": "^8.8.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",

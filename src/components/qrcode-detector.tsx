@@ -4,21 +4,21 @@ import { memo, useEffect, useRef, useState } from "react"
 import { Spinner } from "./spinner"
 
 type Props = {
+  autoStart?: boolean
   startText: string
   stopText: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onCodeDetected: (barcodeValue: string) => any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onValidCode: (data: any) => Promise<void>
 }
 
 const QRCodeDetecorComponent = ({
+  autoStart = false,
   startText,
   stopText,
   onCodeDetected,
   onValidCode,
 }: Props) => {
-  const [detecting, setDetecting] = useState<boolean>(false)
+  const [detecting, setDetecting] = useState<boolean>(autoStart)
   const [cameraReady, setCameraReady] = useState<boolean>(false)
   const qrCodeRef = useRef<Html5Qrcode | null>(null)
 
@@ -26,7 +26,7 @@ const QRCodeDetecorComponent = ({
     if (detecting) {
       qrCodeRef.current =
         qrCodeRef.current ||
-        new Html5Qrcode("qr-code-camera", {
+        new Html5Qrcode("qrCodeCamera", {
           formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
           verbose: false,
         })
@@ -66,12 +66,12 @@ const QRCodeDetecorComponent = ({
   }
 
   return (
-    <div>
+    <div className="qrcode-detector">
       {detecting ? (
-        <div className="qr-code-camera">
-          <div id="qr-code-camera"></div>
+        <div className="qrcode-camera">
+          <div id="qrCodeCamera"></div>
           {cameraReady ? (
-            <div className="close link" onClick={stopDetecting}>
+            <div className="scan-stop link" onClick={stopDetecting}>
               {stopText}
             </div>
           ) : (
@@ -79,7 +79,8 @@ const QRCodeDetecorComponent = ({
           )}
         </div>
       ) : (
-        <div className="scan link center-display" onClick={startDetecting}>
+        <div className="scan-start link" onClick={startDetecting}>
+          <i aria-hidden className="fas fa-qrcode"></i>
           {startText}
         </div>
       )}

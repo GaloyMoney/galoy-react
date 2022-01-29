@@ -2,10 +2,16 @@
 
 exports[`SatSymbol renders and matches snapshot 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="qrcode-detector"
+  >
     <div
-      class="scan link center-display"
+      class="scan-start link"
     >
+      <i
+        aria-hidden="true"
+        class="fas fa-qrcode"
+      />
       start
     </div>
   </div>
