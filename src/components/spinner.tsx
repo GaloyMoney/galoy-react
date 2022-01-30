@@ -1,3 +1,5 @@
+export type SpinnerSize = "big" | "small"
+
 type Props = { size?: SpinnerSize }
 
 export const Spinner = ({ size = "small" }: Props) => {

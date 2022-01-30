@@ -27,9 +27,10 @@ const parseInputValue: ParseInputValueFunction = (inputValue) => {
 export type OnNumberValueChange = (numberValue: number | "") => void
 
 type Props = {
-  value: string
   onChange?: OnNumberValueChange
   onDebouncedChange?: OnNumberValueChange
+  initValue?: string
+  debounceDelay?: number
   [prop: string]: unknown
 }
 
@@ -41,19 +42,20 @@ type InputObject = {
 }
 
 const FormattedNumberInputComponent = ({
-  value,
   onChange,
   onDebouncedChange,
+  initValue,
+  debounceDelay = 1500,
   ...inputProps
 }: Props) => {
   const [input, setInput] = useState<InputObject>(() => ({
-    ...parseInputValue(value),
+    ...parseInputValue(initValue ?? ""),
     typing: false,
   }))
 
   const setDebouncedInputValue = useDebouncedCallback((debouncedValue) => {
     setInput((currInput) => ({ ...currInput, debouncedValue, typing: false }))
-  }, 1500)
+  }, debounceDelay)
 
   useEffect(() => {
     if (input.typing) {

@@ -6,6 +6,8 @@ export type OnTextValueChange = (value: string) => void
 type Props = {
   onChange?: OnTextValueChange
   onDebouncedChange?: OnTextValueChange
+  initValue?: string
+  debounceDelay?: number
   [prop: string]: unknown
 }
 
@@ -18,13 +20,19 @@ type InputObject = {
 const DebouncedTextareaComponent = ({
   onChange,
   onDebouncedChange,
+  initValue,
+  debounceDelay = 1500,
+
   ...textAreaProps
 }: Props) => {
-  const [input, setInput] = useState<InputObject>({ value: "", typing: false })
+  const [input, setInput] = useState<InputObject>({
+    value: initValue ?? "",
+    typing: false,
+  })
 
   const setDebouncedInputValue = useDebouncedCallback((debouncedValue) => {
     setInput((currInput) => ({ ...currInput, debouncedValue, typing: false }))
-  }, 1000)
+  }, debounceDelay)
 
   useEffect(() => {
     if (input.typing) {
