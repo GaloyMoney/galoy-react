@@ -4,7 +4,7 @@ exports[`SatSymbol renders and matches snapshot 1`] = `
 <DocumentFragment>
   <i
     aria-hidden="true"
-    class="fak fa-satoshisymbol-solidtilt sat-symbol"
+    class="fak fa-satoshisymbol-solid sat-symbol"
   />
 </DocumentFragment>
 `;

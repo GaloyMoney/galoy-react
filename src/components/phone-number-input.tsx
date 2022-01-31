@@ -3,7 +3,22 @@ import intlTelInput from "intl-tel-input"
 
 type PhoneNumberProps = {
   onSuccess?: (arg: string) => void
-  onInvalidNumber?: (arg: number | string) => void
+  onInvalidNumber?: (arg: string) => void
+}
+
+const validationErrorMessage = (
+  errorCode: intlTelInputUtils.validationError | undefined,
+) => {
+  switch (errorCode) {
+    case intlTelInputUtils.validationError.TOO_SHORT:
+      return "Phone number is too short"
+    case intlTelInputUtils.validationError.TOO_LONG:
+      return "Phone number is too long"
+    case intlTelInputUtils.validationError.INVALID_COUNTRY_CODE:
+      return "Invaild country code"
+    default:
+      return "Invalid phone number"
+  }
 }
 
 const PhoneNumberInputComponent = ({ onSuccess, onInvalidNumber }: PhoneNumberProps) => {
@@ -26,7 +41,7 @@ const PhoneNumberInputComponent = ({ onSuccess, onInvalidNumber }: PhoneNumberPr
   ) => {
     event.preventDefault()
     if (!iti.current || !iti.current.isValidNumber()) {
-      onInvalidNumber?.(iti?.current?.getValidationError() || "INVALID_PHONE_NUMBER")
+      onInvalidNumber?.(validationErrorMessage(iti?.current?.getValidationError()))
       return
     }
 
