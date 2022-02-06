@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, memo, useEffect } from "react"
+import { ChangeEvent, useState, memo, useEffect, forwardRef } from "react"
 import { useDebouncedCallback } from "use-debounce"
 
 const formatter = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 })
@@ -29,7 +29,7 @@ export type OnNumberValueChange = (numberValue: number | "") => void
 type Props = {
   onChange?: OnNumberValueChange
   onDebouncedChange?: OnNumberValueChange
-  initValue?: string
+  initValue?: number
   debounceDelay?: number
   [prop: string]: unknown
 }
@@ -41,57 +41,69 @@ type InputObject = {
   typing: boolean
 }
 
-const FormattedNumberInputComponent = ({
-  onChange,
-  onDebouncedChange,
-  initValue,
-  debounceDelay = 1500,
-  ...inputProps
-}: Props) => {
-  const [input, setInput] = useState<InputObject>(() => ({
-    ...parseInputValue(initValue ?? ""),
-    typing: false,
-  }))
+const FormattedNumberInputComponent = forwardRef<HTMLInputElement, Props>(
+  (
+    { onChange, onDebouncedChange, initValue, debounceDelay = 1500, ...inputProps },
+    ref,
+  ) => {
+    const [input, setInput] = useState<InputObject>(() => ({
+      ...parseInputValue(initValue?.toString() ?? ""),
+      typing: false,
+    }))
 
-  const setDebouncedInputValue = useDebouncedCallback((debouncedValue) => {
-    setInput((currInput) => ({ ...currInput, debouncedValue, typing: false }))
-  }, debounceDelay)
+    useEffect(() => {
+      if (initValue !== undefined && initValue !== input.numberValue) {
+        setInput({
+          ...parseInputValue(initValue?.toString() ?? ""),
+          typing: false,
+        })
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [initValue])
 
-  useEffect(() => {
-    if (input.typing) {
-      setDebouncedInputValue(input.numberValue)
+    const setDebouncedInputValue = useDebouncedCallback((debouncedValue) => {
+      setInput((currInput) => ({ ...currInput, debouncedValue, typing: false }))
+    }, debounceDelay)
+
+    useEffect(() => {
+      if (input.typing) {
+        setDebouncedInputValue(input.numberValue)
+      }
+      return () => setDebouncedInputValue.cancel()
+    }, [setDebouncedInputValue, input.typing, input.numberValue])
+
+    useEffect(() => {
+      if (onDebouncedChange && input.debouncedValue !== undefined) {
+        onDebouncedChange(input.debouncedValue)
+      }
+    }, [onDebouncedChange, input.debouncedValue])
+
+    const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+      // Block more than 2 decmial numbers or points in the input
+      if (event.target.value.match(/(\.[0-9]{3,}$|\..*\.)/u)) {
+        return
+      }
+      const { numberValue, formattedValue } = parseInputValue(event.target.value)
+      if (onChange) {
+        onChange(numberValue)
+      }
+      setInput({ numberValue, formattedValue, typing: true })
     }
-    return () => setDebouncedInputValue.cancel()
-  }, [setDebouncedInputValue, input.typing, input.numberValue])
 
-  useEffect(() => {
-    if (onDebouncedChange && input.debouncedValue !== undefined) {
-      onDebouncedChange(input.debouncedValue)
-    }
-  }, [onDebouncedChange, input.debouncedValue])
+    return (
+      <input
+        ref={ref}
+        type="text"
+        pattern="\d*"
+        inputMode="numeric"
+        value={input.formattedValue}
+        onChange={handleOnChange}
+        {...inputProps}
+      />
+    )
+  },
+)
 
-  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-    // Block more than 2 decmial numbers or points in the input
-    if (event.target.value.match(/(\.[0-9]{3,}$|\..*\.)/u)) {
-      return
-    }
-    const { numberValue, formattedValue } = parseInputValue(event.target.value)
-    if (onChange) {
-      onChange(numberValue)
-    }
-    setInput({ numberValue, formattedValue, typing: true })
-  }
-
-  return (
-    <input
-      type="text"
-      pattern="\d*"
-      inputMode="numeric"
-      value={input.formattedValue}
-      onChange={handleOnChange}
-      {...inputProps}
-    />
-  )
-}
+FormattedNumberInputComponent.displayName = "FormattedNumberInput"
 
 export const FormattedNumberInput = memo(FormattedNumberInputComponent)

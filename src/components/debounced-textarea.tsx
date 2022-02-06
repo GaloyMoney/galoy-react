@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, memo, useEffect } from "react"
+import { ChangeEvent, useState, memo, useEffect, forwardRef } from "react"
 import { useDebouncedCallback } from "use-debounce"
 
 export type OnTextValueChange = (value: string) => void
@@ -17,45 +17,66 @@ type InputObject = {
   typing: boolean
 }
 
-const DebouncedTextareaComponent = ({
-  onChange,
-  onDebouncedChange,
-  initValue,
-  debounceDelay = 1500,
+const DebouncedTextareaComponent = forwardRef<HTMLTextAreaElement, Props>(
+  (
+    {
+      onChange,
+      onDebouncedChange,
+      initValue,
+      debounceDelay = 1500,
 
-  ...textAreaProps
-}: Props) => {
-  const [input, setInput] = useState<InputObject>({
-    value: initValue ?? "",
-    typing: false,
-  })
+      ...textAreaProps
+    },
+    ref,
+  ) => {
+    const [input, setInput] = useState<InputObject>({
+      value: initValue ?? "",
+      typing: false,
+    })
 
-  const setDebouncedInputValue = useDebouncedCallback((debouncedValue) => {
-    setInput((currInput) => ({ ...currInput, debouncedValue, typing: false }))
-  }, debounceDelay)
+    useEffect(() => {
+      if (initValue !== undefined && initValue !== input.value) {
+        setInput({ value: initValue ?? "", typing: false })
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [initValue])
 
-  useEffect(() => {
-    if (input.typing) {
-      setDebouncedInputValue(input.value)
+    const setDebouncedInputValue = useDebouncedCallback((debouncedValue) => {
+      setInput((currInput) => ({ ...currInput, debouncedValue, typing: false }))
+    }, debounceDelay)
+
+    useEffect(() => {
+      if (input.typing) {
+        setDebouncedInputValue(input.value)
+      }
+      return () => setDebouncedInputValue.cancel()
+    }, [setDebouncedInputValue, input.typing, input.value])
+
+    useEffect(() => {
+      if (onDebouncedChange && input.debouncedValue !== undefined) {
+        onDebouncedChange(input.debouncedValue)
+      }
+    }, [onDebouncedChange, input.debouncedValue])
+
+    const handleOnChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+      const newValue = event.target.value
+      if (onChange) {
+        onChange(newValue)
+      }
+      setInput({ value: newValue, typing: true })
     }
-    return () => setDebouncedInputValue.cancel()
-  }, [setDebouncedInputValue, input.typing, input.value])
 
-  useEffect(() => {
-    if (onDebouncedChange && input.debouncedValue !== undefined) {
-      onDebouncedChange(input.debouncedValue)
-    }
-  }, [onDebouncedChange, input.debouncedValue])
+    return (
+      <textarea
+        ref={ref}
+        value={input.value}
+        onChange={handleOnChange}
+        {...textAreaProps}
+      />
+    )
+  },
+)
 
-  const handleOnChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = event.target.value
-    if (onChange) {
-      onChange(newValue)
-    }
-    setInput({ value: newValue, typing: true })
-  }
-
-  return <textarea value={input.value} onChange={handleOnChange} {...textAreaProps} />
-}
+DebouncedTextareaComponent.displayName = "DebouncedTextarea"
 
 export const DebouncedTextarea = memo(DebouncedTextareaComponent)

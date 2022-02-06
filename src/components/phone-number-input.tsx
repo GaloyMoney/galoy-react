@@ -59,7 +59,7 @@ const PhoneNumberInputComponent = ({ onSuccess, onInvalidNumber }: PhoneNumberPr
         autoFocus
       />
       <button type="submit">
-        <i aria-hidden className="far fa-arrow-alt-circle-right"></i>
+        <i aria-hidden className="far fa-arrow-alt-circle-right" />
       </button>
     </form>
   )

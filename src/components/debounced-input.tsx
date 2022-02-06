@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, memo, useEffect } from "react"
+import { ChangeEvent, useState, memo, useEffect, forwardRef } from "react"
 import { useDebouncedCallback } from "use-debounce"
 
 export type OnInputValueChange = (value: string) => void
@@ -17,44 +17,54 @@ type InputObject = {
   typing: boolean
 }
 
-const DebouncedInputComponent = ({
-  onChange,
-  onDebouncedChange,
-  initValue,
-  debounceDelay = 1500,
-  ...inputProps
-}: Props) => {
-  const [input, setInput] = useState<InputObject>({
-    value: initValue ?? "",
-    typing: false,
-  })
+const DebouncedInputComponent = forwardRef<HTMLInputElement, Props>(
+  (
+    { onChange, onDebouncedChange, initValue, debounceDelay = 1500, ...inputProps },
+    ref,
+  ) => {
+    const [input, setInput] = useState<InputObject>({
+      value: initValue ?? "",
+      typing: false,
+    })
 
-  const setDebouncedInputValue = useDebouncedCallback((debouncedValue) => {
-    setInput((currInput) => ({ ...currInput, debouncedValue, typing: false }))
-  }, debounceDelay)
+    useEffect(() => {
+      if (initValue !== undefined && initValue !== input.value) {
+        setInput({ value: initValue ?? "", typing: false })
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [initValue])
 
-  useEffect(() => {
-    if (input.typing) {
-      setDebouncedInputValue(input.value)
+    const setDebouncedInputValue = useDebouncedCallback((debouncedValue) => {
+      setInput((currInput) => ({ ...currInput, debouncedValue, typing: false }))
+    }, debounceDelay)
+
+    useEffect(() => {
+      if (input.typing) {
+        setDebouncedInputValue(input.value)
+      }
+      return () => setDebouncedInputValue.cancel()
+    }, [setDebouncedInputValue, input.typing, input.value])
+
+    useEffect(() => {
+      if (onDebouncedChange && input.debouncedValue !== undefined) {
+        onDebouncedChange(input.debouncedValue)
+      }
+    }, [onDebouncedChange, input.debouncedValue])
+
+    const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+      const eventValue = event.target.value
+      if (onChange) {
+        onChange(eventValue)
+      }
+      setInput({ value: eventValue, typing: true })
     }
-    return () => setDebouncedInputValue.cancel()
-  }, [setDebouncedInputValue, input.typing, input.value])
 
-  useEffect(() => {
-    if (onDebouncedChange && input.debouncedValue !== undefined) {
-      onDebouncedChange(input.debouncedValue)
-    }
-  }, [onDebouncedChange, input.debouncedValue])
+    return (
+      <input ref={ref} value={input.value} onChange={handleOnChange} {...inputProps} />
+    )
+  },
+)
 
-  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const eventValue = event.target.value
-    if (onChange) {
-      onChange(eventValue)
-    }
-    setInput({ value: eventValue, typing: true })
-  }
-
-  return <input value={input.value} onChange={handleOnChange} {...inputProps} />
-}
+DebouncedInputComponent.displayName = "DebouncedInput"
 
 export const DebouncedInput = memo(DebouncedInputComponent)

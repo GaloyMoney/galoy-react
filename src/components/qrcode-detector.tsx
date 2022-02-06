@@ -19,18 +19,23 @@ const QRCodeDetecorComponent = ({
   onValidCode,
 }: Props) => {
   const [detecting, setDetecting] = useState<boolean>(autoStart)
+  const [errorMessage, setErrorMessage] = useState("")
   const [cameraReady, setCameraReady] = useState<boolean>(false)
   const qrCodeRef = useRef<Html5Qrcode | null>(null)
 
   useEffect(() => {
     if (detecting) {
+      Html5Qrcode.getCameras().catch((err) => {
+        console.debug("[QRCode Camera error]:", err)
+        setErrorMessage("Unable to access camera")
+        setDetecting(false)
+      })
       qrCodeRef.current =
         qrCodeRef.current ||
         new Html5Qrcode("qrCodeCamera", {
           formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
           verbose: false,
         })
-
       const detectBarcode = async () => {
         const onScanSuccess = async (decodedText: string) => {
           const parsedResult = onCodeDetected(decodedText)
@@ -56,7 +61,7 @@ const QRCodeDetecorComponent = ({
     }
   }, [detecting, onCodeDetected, onValidCode])
 
-  const startDetecting = () => {
+  const startDetecting = async () => {
     setDetecting(true)
   }
 
@@ -67,9 +72,10 @@ const QRCodeDetecorComponent = ({
 
   return (
     <div className="qrcode-detector">
+      {errorMessage && <div className="error">{errorMessage}</div>}
       {detecting ? (
         <div className="qrcode-camera">
-          <div id="qrCodeCamera"></div>
+          <div id="qrCodeCamera" />
           {cameraReady ? (
             <div className="scan-stop link" onClick={stopDetecting}>
               {stopText}
@@ -80,7 +86,7 @@ const QRCodeDetecorComponent = ({
         </div>
       ) : (
         <div className="scan-start link" onClick={startDetecting}>
-          <i aria-hidden className="fas fa-qrcode"></i>
+          <i aria-hidden className="fas fa-qrcode" />
           {startText}
         </div>
       )}

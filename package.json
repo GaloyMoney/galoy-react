@@ -1,7 +1,7 @@
 {
   "name": "@galoymoney/react",
   "main": "dist/index.js",
-  "version": "0.0.12",
+  "version": "0.0.15",
   "license": "MIT",
   "repository": "https://github.com/galoymoney/galoy-react",
   "scripts": {
@@ -24,8 +24,8 @@
     "graphql": "^16.2.0",
     "html5-qrcode": "^2.1.6",
     "intl-tel-input": "^17.0.15",
-    "react": "^18.0.0-rc.0-next-2ed58eb88-20220126",
-    "react-dom": "^18.0.0-rc.0-next-2ed58eb88-20220126",
+    "react": "18.0.0-rc.0-next-2ed58eb88-20220126",
+    "react-dom": "18.0.0-rc.0-next-2ed58eb88-20220126",
     "use-debounce": "^7.0.1"
   },
   "devDependencies": {
