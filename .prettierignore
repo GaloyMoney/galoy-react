@@ -4,3 +4,6 @@ dist/
 styles/
 coverage/
 .vscode
+
+*.yml
+*.yaml
