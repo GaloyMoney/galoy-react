@@ -63,19 +63,22 @@ const ReceiveIcon = ({ fill = "#28bf89" }: { fill?: string }) => (
 )
 
 const faMap = {
-  colors: "palette",
   close: "times",
+  colors: "palette",
   home: "home",
+  invite: "plus",
+  language: "language",
   list: "list",
+  lock: "lock",
   login: "sign-in-alt",
   logout: "sign-out-alt",
   menu: "bars",
   people: "user-friends",
   person: "user-alt",
+  history: "clock-rotate-left",
+  bitcoin: "bitcoin-sign",
   qrcode: "qrcode",
   settings: "cog",
-  lock: "lock",
-  language: "language",
   submit: "arrow-alt-circle-right",
 } as const
 
