@@ -15,7 +15,7 @@ const validationErrorMessage = (
     case intlTelInputUtils.validationError.TOO_LONG:
       return "Phone number is too long"
     case intlTelInputUtils.validationError.INVALID_COUNTRY_CODE:
-      return "Invaild country code"
+      return "Invalid country code"
     default:
       return "Invalid phone number"
   }
