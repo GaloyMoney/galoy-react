@@ -65,6 +65,7 @@ const ReceiveIcon = ({ fill = "#28bf89" }: { fill?: string }) => (
 const faMap = {
   close: "times",
   colors: "palette",
+  email: "at",
   home: "home",
   invite: "plus",
   language: "language",
