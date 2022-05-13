@@ -4,4 +4,4 @@ coverage/
 yarn-error.log
 .vscode/
 .DS_Store
-styles/
+/styles/

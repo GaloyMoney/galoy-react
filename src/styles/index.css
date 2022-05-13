@@ -2,4 +2,5 @@
 @import "normalize.css";
 @import "./intl-tel-input";
 @import "./success-checkmark";
+@import "./spinner";
 /*! purgecss end ignore */
