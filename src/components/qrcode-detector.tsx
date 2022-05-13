@@ -1,5 +1,6 @@
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from "html5-qrcode"
 import { memo, useEffect, useRef, useState } from "react"
+import { Icon } from "./icon"
 
 import { Spinner } from "./spinner"
 
@@ -86,7 +87,7 @@ const QRCodeDetecorComponent = ({
         </div>
       ) : (
         <div className="scan-start link" onClick={startDetecting}>
-          <i aria-hidden className="fas fa-qrcode" />
+          <Icon name="qrcode" />
           {startText}
         </div>
       )}
