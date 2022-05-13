@@ -1,5 +1,6 @@
-import React, { memo, useCallback, useRef } from "react"
+import { memo, useCallback, useRef } from "react"
 import intlTelInput from "intl-tel-input"
+import { Icon } from "./icon"
 
 type PhoneNumberProps = {
   onSuccess?: (arg: string) => void
@@ -50,7 +51,7 @@ const PhoneNumberInputComponent = ({ onSuccess, onInvalidNumber }: PhoneNumberPr
   }
 
   return (
-    <form onSubmit={handlePhoneNumberSubmit}>
+    <form className="phone-number-form" onSubmit={handlePhoneNumberSubmit}>
       <input
         ref={phoneRef}
         type="tel"
@@ -59,7 +60,7 @@ const PhoneNumberInputComponent = ({ onSuccess, onInvalidNumber }: PhoneNumberPr
         autoFocus
       />
       <button type="submit">
-        <i aria-hidden className="far fa-arrow-alt-circle-right" />
+        <Icon name="submit" />
       </button>
     </form>
   )

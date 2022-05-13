@@ -1,5 +1,5 @@
 import { memo } from "react"
-import { SatSymbol } from ".."
+import { Icon } from "./icon"
 
 type Props = {
   amount: number
@@ -9,12 +9,12 @@ export const satsFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 })
 
-export const SatFormatComponent = ({ amount }: Props) => {
+const SatFormatComponent = ({ amount }: Props) => {
   const formattedSats = satsFormatter.format(Math.abs(amount))
   return (
     <span className="sat-format" title="Bitcoin Satoshis">
       {amount < 0 && <span className="minus">-</span>}
-      <SatSymbol />
+      <Icon name="sat" />
       {formattedSats}
     </span>
   )

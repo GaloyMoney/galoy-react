@@ -2,9 +2,18 @@
 
 exports[`Spinner renders and matches snapshot 1`] = `
 <DocumentFragment>
-  <i
-    aria-hidden="true"
-    class="spinner fas fa-spinner fa-spin fa-lg"
-  />
+  <svg
+    class="spinner"
+    viewBox="0 0 50 50"
+  >
+    <circle
+      class="path"
+      cx="25"
+      cy="25"
+      fill="none"
+      r="20"
+      stroke-width="5"
+    />
+  </svg>
 </DocumentFragment>
 `;
