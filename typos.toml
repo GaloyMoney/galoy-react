@@ -1,0 +1,2 @@
+[files]
+extend-exclude = ["/src/components/__snapshots__/*", "/src/styles/intl-tel-input.css"]
