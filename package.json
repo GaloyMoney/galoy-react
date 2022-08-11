@@ -1,7 +1,7 @@
 {
   "name": "@galoymoney/react",
   "main": "dist/index.js",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "license": "MIT",
   "repository": "https://github.com/galoymoney/galoy-react",
   "scripts": {
