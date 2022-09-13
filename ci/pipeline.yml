@@ -159,7 +159,7 @@ resources:
 - name: npm-release
   type: npm
   source:
-    package: client
+    package: react
     scope: galoymoney
     registry:
       uri: https://registry.npmjs.org/
