@@ -24,6 +24,7 @@ import ReceiveIcon from "./icons/receive"
 import SatIcon from "./icons/sat"
 import SendIcon from "./icons/send"
 import SpinnerIcon from "./icons/spinner"
+import TransferIcon from "./icons/transfer"
 import WorldIcon from "./icons/world"
 
 export type IconName =
@@ -51,6 +52,7 @@ export type IconName =
   | "settings"
   | "spinner"
   | "submit"
+  | "transfer"
   | "world"
 
 export const Icon: React.FC<{ name: IconName }> = ({ name }) => {
@@ -103,6 +105,8 @@ export const Icon: React.FC<{ name: IconName }> = ({ name }) => {
       return <SpinnerIcon />
     case "submit":
       return <ArrowRightCircleIcon />
+    case "transfer":
+      return <TransferIcon />
     case "world":
       return <WorldIcon />
   }
