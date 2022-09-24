@@ -5,7 +5,7 @@ type Props = {
   amount: number
 }
 
-export const satsFormatter = new Intl.NumberFormat("en-US", {
+const satsFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 })
 
