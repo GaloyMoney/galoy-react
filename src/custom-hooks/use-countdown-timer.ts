@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 type useCountdownTimerReturnValue = {
   timeLeft: number | undefined
@@ -35,42 +35,45 @@ export const useCountdownTimer = (): useCountdownTimerReturnValue => {
     }
   }, [timeLeft, completedCallback])
 
-  const startCountdownTimer = (seconds: number, callback?: () => void) => {
+  const startCountdownTimer = useCallback((seconds: number, callback?: () => void) => {
     setTimeLeft(seconds)
     if (callback) {
       setCompletedCallback(() => callback)
     }
-  }
+  }, [])
 
-  const stopCountdownTimer = () => {
+  const stopCountdownTimer = useCallback(() => {
     setTimeLeft(0)
-  }
+  }, [])
 
-  const resetCountdownTimer = (seconds: number, newCallback?: () => void) => {
+  const resetCountdownTimer = useCallback((seconds: number, newCallback?: () => void) => {
     setTimeLeft(seconds)
     if (newCallback) {
       setCompletedCallback(() => newCallback)
     }
-  }
+  }, [])
 
-  const resetCountdownTimerAndExecuteCallback = (
-    seconds: number,
-    newCallback?: () => void,
-  ) => {
-    setTimeLeft(seconds)
-    if (completedCallback) {
-      completedCallback()
-    }
-    setCompletedCallback(() => newCallback)
-  }
+  const resetCountdownTimerAndExecuteCallback = useCallback(
+    (seconds: number, newCallback?: () => void) => {
+      setTimeLeft(seconds)
+      if (completedCallback) {
+        completedCallback()
+      }
+      setCompletedCallback(() => newCallback)
+    },
+    [completedCallback],
+  )
 
-  const stopCountdownTimerAndExecuteCallback = (newCallback?: () => void) => {
-    setTimeLeft(0)
-    if (completedCallback) {
-      completedCallback()
-    }
-    setCompletedCallback(() => newCallback)
-  }
+  const stopCountdownTimerAndExecuteCallback = useCallback(
+    (newCallback?: () => void) => {
+      setTimeLeft(0)
+      if (completedCallback) {
+        completedCallback()
+      }
+      setCompletedCallback(() => newCallback)
+    },
+    [completedCallback],
+  )
 
   return {
     timeLeft,
