@@ -794,10 +794,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/intl-tel-input@^17.0.4":
-  version "17.0.4"
-  resolved "https://registry.npmjs.org/@types/intl-tel-input/-/intl-tel-input-17.0.4.tgz"
-  integrity sha512-AIX0Azxs7fAkeI2wjAsMNE4Lfoa+/NqazWDPM4k4Vm8lhcId0BNMjzC/BACEGE0nAScc71+pznlKnTxBfW5HHA==
+"@types/intl-tel-input@^17.0.5":
+  version "17.0.5"
+  resolved "https://registry.yarnpkg.com/@types/intl-tel-input/-/intl-tel-input-17.0.5.tgz#eaf9d0ce32c20e3ba590317b68509cb6c193edbb"
+  integrity sha512-Fy78eswLvfx82vZ/N5/gsC9Cping2PNSU28VIcs4frmVwH2rnoyiRhwEMrMrUeZ1NiuvDxHrsTMwz6CDpngbBg==
   dependencies:
     "@types/jquery" "*"
 
@@ -2572,10 +2572,10 @@ interpret@^2.2.0:
   resolved "https://registry.npmjs.org/interpret/-/interpret-2.2.0.tgz"
   integrity sha512-Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==
 
-intl-tel-input@^17.0.16:
-  version "17.0.16"
-  resolved "https://registry.npmjs.org/intl-tel-input/-/intl-tel-input-17.0.16.tgz"
-  integrity sha512-aDcfhkl+wf9NYYpvA2v40dPiNUZHLlORAaKogC85IwfN0v6B2jJtq+NyMd0GgM0MCAZp8N2dNG2oygz9pQVVaQ==
+intl-tel-input@^17.0.18:
+  version "17.0.18"
+  resolved "https://registry.yarnpkg.com/intl-tel-input/-/intl-tel-input-17.0.18.tgz#dd6eeefc5b33bfbea32cbba770270ac138c5cda3"
+  integrity sha512-U+ugXhOrYO/6ggIWKccsXcfAEWzjnTBLXK8c/71zvatjSPNz3TgVnXH8KhotaPh+4mBxXy4SlNOgsbXiecfPSA==
 
 is-arrayish@^0.2.1:
   version "0.2.1"
