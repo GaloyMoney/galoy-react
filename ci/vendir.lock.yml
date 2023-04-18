@@ -2,8 +2,14 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: 'revert: no need to cargo install in unpack_deps()'
-      sha: 21f61dd069d26270a870c870e02ad9f841e95d00
+      commitTitle: 'chore: pipeline fragments file names'
+      sha: 0a916f2074c900552639e84e379a2deb90b416db
     path: .
-  path: vendor
+  path: ../.github/workflows/vendor
+- contents:
+  - git:
+      commitTitle: 'chore: pipeline fragments file names'
+      sha: 0a916f2074c900552639e84e379a2deb90b416db
+    path: .
+  path: ./vendor
 kind: LockConfig
