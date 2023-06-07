@@ -2,8 +2,14 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: 'revert: no need to cargo install in unpack_deps()'
-      sha: 21f61dd069d26270a870c870e02ad9f841e95d00
+      commitTitle: 'chore: bump nodejs actions'
+      sha: 5070acbec19e25e274eaa23714012d88c51a2ad1
     path: .
-  path: vendor
+  path: ../.github/workflows/vendor
+- contents:
+  - git:
+      commitTitle: 'chore: bump nodejs actions'
+      sha: 5070acbec19e25e274eaa23714012d88c51a2ad1
+    path: .
+  path: ./vendor
 kind: LockConfig
