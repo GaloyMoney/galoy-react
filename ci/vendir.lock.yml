@@ -2,8 +2,14 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: 'revert: no need to cargo install in unpack_deps()'
-      sha: 21f61dd069d26270a870c870e02ad9f841e95d00
+      commitTitle: 'feat: test-on-docker accepts extra params'
+      sha: 8f0a58965090a6089790103c06dc2d29d0518de3
     path: .
-  path: vendor
+  path: ../.github/workflows/vendor
+- contents:
+  - git:
+      commitTitle: 'feat: test-on-docker accepts extra params'
+      sha: 8f0a58965090a6089790103c06dc2d29d0518de3
+    path: .
+  path: ./vendor
 kind: LockConfig
